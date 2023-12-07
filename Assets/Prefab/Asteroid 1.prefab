@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScale: 0.8
-  maxScale: 1.8
+  maxScale: 2.5
   rotationOffset: 100
 --- !u!114 &8348214622018747997
 MonoBehaviour:
