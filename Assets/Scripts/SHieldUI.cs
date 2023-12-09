@@ -24,7 +24,7 @@ public class SHieldUI : MonoBehaviour
 
     void updateSheildDisplay(float percentage)
     {
-        healthBar.sizeDelta = new Vector2(maxwidth * percentage, 10f);
+        healthBar.sizeDelta = new Vector2(maxwidth * percentage,0);
 
     }
 }

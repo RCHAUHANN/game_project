@@ -15,6 +15,7 @@ public class EnemyAttack : MonoBehaviour
         HaveLineOfSight();
         if(InFront() && HaveLineOfSight())
         {
+            Debug.Log("firing lasers ffs >:( ");
             FireLaser();
         }
     }
@@ -35,23 +36,39 @@ public class EnemyAttack : MonoBehaviour
     bool HaveLineOfSight()
     {
         RaycastHit hit;
-        Vector3 direction = target.position - transform.position;
+        Vector3 direction = target.position - laser.transform.position;
+
+        // Check if the player is within the laser's distance
         
-        if(Physics.Raycast(laser.transform.position, direction, out hit, laser.Distance))
+        if (Physics.Raycast(laser.transform.position, direction, out hit, laser.Distance))
         {
             if (hit.transform.CompareTag("Player"))
             {
+                // Debug draw line to player
                 Debug.DrawRay(laser.transform.position, direction, Color.green);
                 hitPosition = hit.transform.position;
                 return true;
             }
+            else
+            {
+                // Debug draw line to hit object (not player)
+                Debug.DrawRay(laser.transform.position, direction, Color.yellow);
+                Debug.Log("Ray hit object: " + hit.transform.name);
+            }
         }
-        return false;
+        else
+        {
+            // Debug draw line showing the laser's maximum distance
+            Debug.DrawRay(laser.transform.position, direction.normalized * laser.Distance, Color.red);
+            Debug.Log("No line of sight to player. Distance: " + Vector3.Distance(laser.transform.position, target.position));
+        }
 
+        return false;
     }
+
     void FireLaser()
     {
-        Debug.Log("fire lasers !!!!!....");
+        Debug.Log("fire lasers !!!!!...." + hitPosition + ",Target: "+ target.position);
         laser.FireLaser(hitPosition,target);
     }
 

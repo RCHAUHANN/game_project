@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidManager : MonoBehaviour
 {
     [SerializeField] Asteroid asteroidPrefab;
+    [SerializeField] GameObject plaayerPickupPrefab;
     [SerializeField] int numberOfAsteroidOnAxis = 10;
     [SerializeField] int gridspacing = 100;
     List<Asteroid> asteroids = new List<Asteroid>();    
@@ -18,6 +19,7 @@ public class AsteroidManager : MonoBehaviour
     {
         EventManager.onStartGame += placeAsteroids;
         EventManager.onPlayerDeath += DestroyAsteroids;
+        EventManager.onRespawnPickup += PlacePickup;
 
     }
     void OnDisable()
@@ -25,6 +27,7 @@ public class AsteroidManager : MonoBehaviour
 
         EventManager.onStartGame -= placeAsteroids;
         EventManager.onPlayerDeath -= DestroyAsteroids;
+        EventManager.onRespawnPickup -= PlacePickup;
     }
     void DestroyAsteroids()
     {
@@ -48,6 +51,7 @@ public class AsteroidManager : MonoBehaviour
 
             }
         }
+        PlacePickup();
     }
 
     void instantiateAsteroid(int x, int y, int z)
@@ -58,6 +62,15 @@ public class AsteroidManager : MonoBehaviour
             transform.position.z + (z * gridspacing) + AsteroidOffset()),
             Quaternion.identity, transform) as Asteroid;
         asteroids.Add(temp);
+    }
+
+    void PlacePickup()
+    {
+        int rnd= Random.Range(0,asteroids.Count);
+        Instantiate(plaayerPickupPrefab, asteroids[rnd].transform.position, Quaternion.identity);
+        Destroy(asteroids[rnd].gameObject);
+        asteroids.RemoveAt(rnd);  
+        
     }
 
     float AsteroidOffset()

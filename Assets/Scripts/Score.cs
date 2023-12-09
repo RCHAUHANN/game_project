@@ -3,34 +3,42 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Score : MonoBehaviour
 {
     [SerializeField]TMP_Text scoreText;
-    [SerializeField] TMP_Text hiscoreText;
+    
     [SerializeField] int score;
-    [SerializeField] int hiScore;
+    [SerializeField] int ScoreToWin =500;
 
     private void Start()
     {
-        LoadHiScore();
+        
     }
     private void OnEnable()
     {
         EventManager.onStartGame += ResetScore;
-        EventManager.onPlayerDeath += CheckNewHiScore;
+        
         EventManager.onScorePOints += AddScore;
     }
 
     private void OnDisable()
     {
         EventManager.onStartGame -= ResetScore;
-        EventManager.onPlayerDeath -= CheckNewHiScore;
+        
         EventManager.onScorePOints -= AddScore;
     }
 
     void AddScore(int amt)
     {
         score += amt;
+        DisplayScore();
+
+        if(score >= ScoreToWin)
+        {
+            LoadNextLevel();
+        }
+
     }
 
     void ResetScore()
@@ -44,21 +52,9 @@ public class Score : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
-    void LoadHiScore()
+    void LoadNextLevel()
     {
-        hiScore = PlayerPrefs.GetInt("HighScore", 0);
-        displayHiScore();
+        SceneManager.LoadScene("Level2");
     }
-     void CheckNewHiScore()
-    {
-        if (score > hiScore) { 
-            PlayerPrefs.SetInt("HighScore", score);
-            displayHiScore();   
-        }
-
-    }
-    void displayHiScore()
-    {
-        hiscoreText.text = hiScore.ToString();
-    }
+  
 }

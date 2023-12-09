@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] float spawnTimer = 5f;
+    [SerializeField] int maxEnemies =10;
+    int spawnedEnemies = 0;
 
     private void Start()
     {
@@ -26,7 +28,13 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if(spawnedEnemies < maxEnemies)
+        {
+            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            spawnedEnemies++;
+        }
+        
+        
     }
 
     void StartSpawning()
@@ -37,5 +45,6 @@ public class EnemySpawner : MonoBehaviour
     void StopSpawning()
     {
         CancelInvoke();
+        spawnedEnemies = 0;
     }
 }
