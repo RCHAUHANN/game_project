@@ -9,7 +9,9 @@ public class Score : MonoBehaviour
     [SerializeField]TMP_Text scoreText;
     
     [SerializeField] int score;
-    [SerializeField] int ScoreToWin =500;
+    [SerializeField] int ScoreToWin;
+    [SerializeField] int currentLevel;
+    
 
     private void Start()
     {
@@ -38,7 +40,8 @@ public class Score : MonoBehaviour
         {
             LoadNextLevel();
         }
-
+        
+       
     }
 
     void ResetScore()
@@ -56,5 +59,7 @@ public class Score : MonoBehaviour
     {
         SceneManager.LoadScene("Level2");
     }
-  
+
+   
+
 }

@@ -933,6 +933,7 @@ MonoBehaviour:
   scoreText: {fileID: 1980495387}
   score: 0
   ScoreToWin: 700
+  currentLevel: 2
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1248,6 +1248,7 @@ MonoBehaviour:
     type: 3}
   playerStartPosition: {fileID: 92667432}
   GameOver: {fileID: 269207572}
+  ToWinPanel: {fileID: 0}
 --- !u!114 &813586807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,6 +1278,8 @@ MonoBehaviour:
   scoreText: {fileID: 1980495387}
   score: 0
   ScoreToWin: 500
+  currentLevel: 1
+  gameUI: {fileID: 813586806}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

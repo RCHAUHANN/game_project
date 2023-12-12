@@ -14,17 +14,26 @@ public class SHieldUI : MonoBehaviour
 
     private void OnEnable()
     {
+        EventManager.onStartGame += ResetHealth;
         EventManager.onTakeDamage += updateSheildDisplay;
+        
     }
 
     private void OnDisable() 
     {
+        EventManager.onStartGame -= ResetHealth;
         EventManager.onTakeDamage -= updateSheildDisplay;
+        
     }
 
     void updateSheildDisplay(float percentage)
     {
         healthBar.sizeDelta = new Vector2(maxwidth * percentage,0);
 
+    }
+
+    void ResetHealth()
+    {
+        healthBar.sizeDelta = new Vector2(maxwidth, 0);
     }
 }
